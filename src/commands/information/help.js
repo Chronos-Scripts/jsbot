@@ -141,12 +141,10 @@ module.exports = {
               }
             }
             found = true;
-            console.log(perm);
             let str = "";
             for (const [p, val] of Object.entries(perm)) {
               str += `${val}\n`;
             }
-            console.log(str);
             const embed = new EmbedBuilder()
               .setColor(0x0099ff)
               .setTitle(cd.name)
