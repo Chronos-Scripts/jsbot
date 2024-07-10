@@ -133,11 +133,30 @@ module.exports = {
 
         for (const file of commandFiles) {
           const { default: cd } = await import(`./../${folder}/${file}`);
-          var perm = [];
+          let perm = [];
+          let option = [];
           if (cd.name === cmdName) {
-            for (const [name, val] of Object.entries(PermissionFlagsBits)) {
-              for (const c of cd.permissionsRequired) {
-                if (c === val) perm.push(name);
+            if (cd.permissionsRequired) {
+              for (const [name, val] of Object.entries(PermissionFlagsBits)) {
+                for (const c of cd.permissionsRequired) {
+                  if (c === val) perm.push(name);
+                }
+              }
+            }
+
+            let str2 = "";
+            if (cd.options) {
+              for (const option of cd.options) {
+                if (option.type === ApplicationCommandOptionType.Subcommand) {
+                  if (option.options) {
+                    str2 += `${option.name}:\n`;
+                    for (const suboption of option.options) {
+                      str2 += `  - ${suboption.name}: ${suboption.description}\n`;
+                    }
+                  } else str2 += `${option.name}\n`;
+                } else {
+                  str2 += `${option.name}: ${option.description}\n`;
+                }
               }
             }
             found = true;
@@ -145,6 +164,7 @@ module.exports = {
             for (const [p, val] of Object.entries(perm)) {
               str += `${val}\n`;
             }
+
             const embed = new EmbedBuilder()
               .setColor(0x0099ff)
               .setTitle(cd.name)
@@ -155,10 +175,14 @@ module.exports = {
                 name: "Permissions",
                 value: str || "No permissions needed for this command.",
               })
-              .addFields({ name: "Options", value: "none" });
+              .addFields({ name: "Options", value: str2 || "none" });
             interaction.reply({ embeds: [embed] });
           }
         }
+      }
+
+      if (!found) {
+        interaction.reply({ content: "Command not found." });
       }
     }
   },
