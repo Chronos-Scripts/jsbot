@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
   userId: {
@@ -21,7 +21,9 @@ const userSchema = new Schema({
   warns: {
     type: Array,
     default: [],
-  }
+  },
+
+  banned: Boolean,
 });
 
-module.exports = model('UserDataTestingVersion4', userSchema);
+module.exports = model("UserDataTestingVersion4", userSchema);

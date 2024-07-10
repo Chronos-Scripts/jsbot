@@ -64,13 +64,11 @@ module.exports = {
       .setDescription(
         "Select a category from the dropdown menu to view commands."
       )
-      .setImage(`${interaction.guild.iconURL()}`)
       .setThumbnail(client.user.displayAvatarURL())
-      .setFooter({ text: "Made by chronos" })
       .setTimestamp();
 
     const row = new ActionRowBuilder().addComponents(SelectMenu);
-
+    console.log("ee");
     const message = await interaction.editReply({
       embeds: [embed],
       components: [row],

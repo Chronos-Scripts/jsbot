@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const GuildSchemaa = new Schema({
   guildId: {
@@ -6,9 +6,11 @@ const GuildSchemaa = new Schema({
     required: true,
     unique: true,
   },
-  
+
   modlogs: String,
   autorole: String,
+
+  banned: Boolean,
 });
 
-module.exports = model('Guildxxxxxxxxx', GuildSchemaa);
+module.exports = model("Guildxxxxxxxxx", GuildSchemaa);
