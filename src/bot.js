@@ -24,9 +24,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 
 (async () => {
   try {
-    mongoose.set("strictQuery", false);
     client.login(process.env.TOKEN);
-    await mongoose.connect(process.env.MONGODB_URI);
   } catch (error) {
     console.log(`Error: ${error}`);
   }
